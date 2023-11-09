@@ -9,7 +9,7 @@ const Header = styled.div<HeaderProps>`
   height: 100px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
   box-shadow: ${(props) => (props.$type ? "1px 1px 2px 0 #46484B inset" : "")};
-  position: relative;
+  position: fixed;
 
   &:before {
     position: absolute;

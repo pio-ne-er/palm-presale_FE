@@ -1,4 +1,6 @@
-import { H1, H2 } from "@features/font";
+import { HoverContext } from "@features/contexts";
+import { H3, H4 } from "@features/font";
+import { useContext } from "react";
 import { styled } from "styled-components";
 
 interface ButtonProps {
@@ -76,7 +78,6 @@ const MainBord = styled.div<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
 
   &:before {
@@ -227,19 +228,26 @@ export const MainButton = ({
   title: string;
   color: string;
 }) => {
+  const { setHover } = useContext(HoverContext);
+
   return (
-    <Button $sm={small} $disable={disable}>
+    <Button
+      $sm={small}
+      $disable={disable}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       <MainBord $w={width} $sm={small} $main={main} $disable={disable}>
         <BorderEffect $sm={small} $main={main} />
         <ButtonEffect $sm={small} $main={main} />
         {small ? (
-          <H2 color={color} $weight="500">
+          <H4 color={color} $weight="500">
             {title}
-          </H2>
+          </H4>
         ) : (
-          <H1 color={color} $weight="600">
+          <H3 color={color} $weight="600">
             {title}
-          </H1>
+          </H3>
         )}
       </MainBord>
     </Button>

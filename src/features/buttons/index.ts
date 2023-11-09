@@ -1,1 +1,1 @@
-export * as default from "./Main-Button";
+export * from "./Main-Button";
