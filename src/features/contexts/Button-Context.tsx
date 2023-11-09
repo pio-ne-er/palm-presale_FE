@@ -17,3 +17,21 @@ export const HoverContextProvider = ({ children }: { children: ReactNode }) => {
     </HoverContext.Provider>
   );
 };
+
+export const TabContext = createContext<{
+  type: boolean;
+  setType: (data: boolean) => void;
+}>({
+  type: true,
+  setType: () => {},
+});
+
+export const TabContextProvider = ({ children }: { children: ReactNode }) => {
+  const [type, setType] = useState<boolean>(true);
+
+  return (
+    <TabContext.Provider value={{ type, setType }}>
+      {children}
+    </TabContext.Provider>
+  );
+};
