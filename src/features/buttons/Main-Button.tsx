@@ -235,8 +235,8 @@ export const MainButton = ({
       $sm={small}
       $w={width}
       $disable={disable}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => setHover("true")}
+      onMouseLeave={() => setHover("")}
     >
       <MainBord $w={width} $sm={small} $main={main} $disable={disable}>
         <BorderEffect $sm={small} $main={main} />

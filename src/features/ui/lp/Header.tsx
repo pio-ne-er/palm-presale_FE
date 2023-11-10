@@ -1,9 +1,12 @@
 import { styled } from "styled-components";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 
 import { IconButton, MainButton } from "@features/buttons";
-import styles from "./Header.module.css";
 import { HoverContext } from "@features/contexts";
+import styles from "./Header.module.css";
+import { WalletConnectBoard } from "@features/pads";
 
 interface HeaderProps {
   $type: boolean;
@@ -38,10 +41,19 @@ const Header = styled.div<HeaderProps>`
 
 export const LPHeader = ({ position = false }: { position: boolean }) => {
   const { hover } = useContext(HoverContext);
+  const { connection } = useConnection();
+  const { publicKey, sendTransaction } = useWallet();
+
+  useEffect(() => {
+    console.log("Publickey", publicKey);
+  }, [publicKey]);
 
   return (
     <Header $type={position}>
-      <MainButton width={142} title="Connect Wallet" color="white" />
+      <div className="group">
+        <MainButton width={142} title="Connect Wallet" color="white" />
+        <WalletConnectBoard />
+      </div>
       <div className={styles.header_social}>
         <IconButton
           name="Facebook"
