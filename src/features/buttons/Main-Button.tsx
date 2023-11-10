@@ -233,6 +233,7 @@ export const MainButton = ({
   return (
     <Button
       $sm={small}
+      $w={width}
       $disable={disable}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
