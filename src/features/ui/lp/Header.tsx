@@ -10,6 +10,9 @@ const Header = styled.div<HeaderProps>`
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
   box-shadow: ${(props) => (props.$type ? "1px 1px 2px 0 #46484B inset" : "")};
   position: fixed;
+  z-index: 4;
+  display: flex;
+  justify-content: flex-end;
 
   &:before {
     position: absolute;
@@ -19,8 +22,9 @@ const Header = styled.div<HeaderProps>`
     right: 0;
     bottom: 0;
     background: linear-gradient(110deg, #30353d 13.13%, #38291d 86.87%);
-    opacity: ${(props) => (props.$type ? "0" : "1")};
+    opacity: ${(props) => (props.$type ? "1" : "0")};
     transition: all 0.2s ease-in-out;
+    box-shadow: 0 16px 28px -7px #00000074;
   }
 `;
 

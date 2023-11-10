@@ -1,5 +1,8 @@
-import { Icon } from "@features/icon";
 import { styled, keyframes } from "styled-components";
+import { useContext } from "react";
+
+import { Icon } from "@features/icon";
+import { HoverContext } from "@features/contexts";
 
 const ScrollAnim = keyframes`
 0, 100% {
@@ -18,10 +21,23 @@ const StyleScrollDown = styled.div`
   animation-timing-function: linear;
 `;
 
-export const ScrollDownButton = () => {
+export const ScrollDownButton = ({
+  className,
+  onClick,
+}: {
+  className: string;
+  onClick: () => void;
+}) => {
+  const { setHover } = useContext(HoverContext);
+
   return (
-    <StyleScrollDown>
-      <Icon name="ScrollDown" color="black" />
+    <StyleScrollDown
+      className={className}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      onClick={onClick}
+    >
+      <Icon name="ScrollDown" color="white" />
     </StyleScrollDown>
   );
 };
