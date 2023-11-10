@@ -1,4 +1,9 @@
 import { styled } from "styled-components";
+import { useContext } from "react";
+
+import { IconButton, MainButton } from "@features/buttons";
+import styles from "./Header.module.css";
+import { HoverContext } from "@features/contexts";
 
 interface HeaderProps {
   $type: boolean;
@@ -13,6 +18,9 @@ const Header = styled.div<HeaderProps>`
   z-index: 4;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 40px;
+  padding: 0 32px;
 
   &:before {
     position: absolute;
@@ -29,5 +37,23 @@ const Header = styled.div<HeaderProps>`
 `;
 
 export const LPHeader = ({ position = false }: { position: boolean }) => {
-  return <Header $type={position}></Header>;
+  const { hover } = useContext(HoverContext);
+
+  return (
+    <Header $type={position}>
+      <MainButton width={142} title="Connect Wallet" color="white" />
+      <div className={styles.header_social}>
+        <IconButton
+          name="Facebook"
+          color={hover === "Facebook" ? "#1D9BF0" : "white"}
+          size="sm"
+        />
+        <IconButton
+          name="Discord"
+          color={hover === "Discord" ? "#5865F2" : "white"}
+          size="sm"
+        />
+      </div>
+    </Header>
+  );
 };

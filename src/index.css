@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira:wght@300;400;500;600;700;800&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   cursor: none;
   max-width: 100vw;
@@ -21,4 +25,10 @@ body {
   left: 50%;
   transform: translateY(-50%);
   bottom: 56px;
+}
+
+.center_position {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

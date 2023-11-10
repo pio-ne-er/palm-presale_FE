@@ -1,15 +1,15 @@
 import { createContext, ReactNode, useState } from "react";
 
 export const HoverContext = createContext<{
-  hover: boolean;
-  setHover: (data: boolean) => void;
+  hover: string;
+  setHover: (data: string) => void;
 }>({
-  hover: false,
+  hover: "",
   setHover: () => {},
 });
 
 export const HoverContextProvider = ({ children }: { children: ReactNode }) => {
-  const [hover, setHover] = useState<boolean>(false);
+  const [hover, setHover] = useState<string>("");
 
   return (
     <HoverContext.Provider value={{ hover, setHover }}>
