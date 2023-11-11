@@ -11,3 +11,21 @@ export const Landing_Page_Intet = [
     image: "src/assets/ui/governor.jpg",
   },
 ];
+
+export interface NftItem {
+  mint: string;
+  name: string;
+  description: string;
+  staked: boolean;
+  image: string;
+  user: string;
+  startTime: string;
+  uri: string;
+  faction: string;
+}
+
+export interface User {
+  username: string;
+  wallet: string;
+  image: string;
+}

@@ -1,7 +1,6 @@
+import { useContext, useState } from "react";
 import { styled } from "styled-components";
-import { useContext, useEffect } from "react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 import { IconButton, MainButton } from "@features/buttons";
 import { HoverContext } from "@features/contexts";
@@ -39,32 +38,55 @@ const Header = styled.div<HeaderProps>`
   }
 `;
 
+const Link = styled.a`
+  cursor: none;
+`;
+
 export const LPHeader = ({ position = false }: { position: boolean }) => {
   const { hover } = useContext(HoverContext);
-  const { connection } = useConnection();
-  const { publicKey, sendTransaction } = useWallet();
+  const wallet = useWallet();
+  const [showConnedtBoard, setShowConnectBoard] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log("Publickey", publicKey);
-  }, [publicKey]);
+  const handleShowBoard = () => {
+    setShowConnectBoard((prev) => !prev);
+  };
+
+  const handleSignIn = () => {};
 
   return (
     <Header $type={position}>
       <div className="group">
-        <MainButton width={142} title="Connect Wallet" color="white" />
-        <WalletConnectBoard />
+        <MainButton
+          width={142}
+          title={wallet.publicKey ? "Sign In" : "Connect Wallet"}
+          color="white"
+          onClick={wallet.publicKey ? handleSignIn : handleShowBoard}
+        />
+        {showConnedtBoard && <WalletConnectBoard />}
       </div>
       <div className={styles.header_social}>
-        <IconButton
-          name="Facebook"
-          color={hover === "Facebook" ? "#1D9BF0" : "white"}
-          size="sm"
-        />
-        <IconButton
-          name="Discord"
-          color={hover === "Discord" ? "#5865F2" : "white"}
-          size="sm"
-        />
+        <Link
+          href="https://x.com/pioneerlegendio/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <IconButton
+            name="Facebook"
+            color={hover === "Facebook" ? "#1D9BF0" : "white"}
+            size="sm"
+          />
+        </Link>
+        <Link
+          href="https://discord.com/invite/pioneerlegends"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <IconButton
+            name="Discord"
+            color={hover === "Discord" ? "#5865F2" : "white"}
+            size="sm"
+          />
+        </Link>
       </div>
     </Header>
   );

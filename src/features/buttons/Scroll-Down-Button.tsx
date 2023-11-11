@@ -33,8 +33,8 @@ export const ScrollDownButton = ({
   return (
     <StyleScrollDown
       className={className}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => setHover("Scroll Down")}
+      onMouseLeave={() => setHover("")}
       onClick={onClick}
     >
       <Icon name="ScrollDown" color="white" />

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { WalletConnectButton } from "@features/buttons";
+import { useUserData } from "@features/providers";
 import { styled } from "styled-components";
 
 const StyleBoard = styled.div`
@@ -42,8 +43,14 @@ const StyleBoard = styled.div`
 const WalletConnectList = ["Phantom", "Backpack", "Ledger"];
 
 export const WalletConnectBoard = () => {
-  const handleConnectProvider = (type: string) => {
-    console.log("type", type);
+  const { sign } = useUserData();
+
+  const handleConnectProvider = async (type: string) => {
+    switch (type) {
+      case "Phantom":
+        await sign(false);
+        break;
+    }
   };
 
   return (

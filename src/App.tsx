@@ -3,19 +3,27 @@ import { BrowserRouter } from "react-router-dom";
 import Router from "pages/router";
 import { CustomCursor } from "@features/cursor";
 import { HoverContextProvider, TabContextProvider } from "@features/contexts";
-import { WalletConnectProvider } from "@features/providers";
+import {
+  UserContextProvider,
+  WalletConnectProvider,
+  WalletModalProvider,
+} from "@features/providers";
 
 function App() {
   return (
     <WalletConnectProvider>
-      <HoverContextProvider>
-        <TabContextProvider>
-          <BrowserRouter>
-            <CustomCursor />
-            <Router />
-          </BrowserRouter>
-        </TabContextProvider>
-      </HoverContextProvider>
+      <WalletModalProvider>
+        <UserContextProvider>
+          <HoverContextProvider>
+            <TabContextProvider>
+              <BrowserRouter>
+                <CustomCursor />
+                <Router />
+              </BrowserRouter>
+            </TabContextProvider>
+          </HoverContextProvider>
+        </UserContextProvider>
+      </WalletModalProvider>
     </WalletConnectProvider>
   );
 }
