@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { styled } from "styled-components";
 import { useWallet } from "@solana/wallet-adapter-react";
 
@@ -6,6 +6,7 @@ import { IconButton, MainButton } from "@features/buttons";
 import { HoverContext } from "@features/contexts";
 import styles from "./Header.module.css";
 import { WalletConnectBoard } from "@features/pads";
+import { useUserData } from "@features/providers";
 
 interface HeaderProps {
   $type: boolean;
@@ -45,13 +46,24 @@ const Link = styled.a`
 export const LPHeader = ({ position = false }: { position: boolean }) => {
   const { hover } = useContext(HoverContext);
   const wallet = useWallet();
+  const { sign } = useUserData();
   const [showConnedtBoard, setShowConnectBoard] = useState<boolean>(false);
 
   const handleShowBoard = () => {
     setShowConnectBoard((prev) => !prev);
   };
 
-  const handleSignIn = () => {};
+  const handleSignIn = async () => {
+    await sign(false);
+  };
+
+  useEffect(() => {
+    console.log("wallet.publicKey", wallet.publicKey?.toBase58());
+  }, [wallet.publicKey]);
+
+  useEffect(() => {
+    console.log("Wallet", wallet.wallets);
+  }, [wallet]);
 
   return (
     <Header $type={position}>

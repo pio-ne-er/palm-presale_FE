@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useEffect } from "react";
+import { styled } from "styled-components";
+
 import { WalletConnectButton } from "@features/buttons";
 import { useUserData } from "@features/providers";
-import { styled } from "styled-components";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const StyleBoard = styled.div`
   position: absolute;
@@ -44,6 +47,7 @@ const WalletConnectList = ["Phantom", "Backpack", "Ledger"];
 
 export const WalletConnectBoard = () => {
   const { sign } = useUserData();
+  const wallet = useWallet();
 
   const handleConnectProvider = async (type: string) => {
     switch (type) {
@@ -52,6 +56,10 @@ export const WalletConnectBoard = () => {
         break;
     }
   };
+
+  useEffect(() => {
+    console.log("wallet", wallet.wallets);
+  }, []);
 
   return (
     <StyleBoard>

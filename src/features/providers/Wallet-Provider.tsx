@@ -3,8 +3,6 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
   LedgerWalletAdapter,
   PhantomWalletAdapter,
-  SolflareWalletAdapter,
-  TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import {
   ConnectionProvider,
@@ -22,12 +20,7 @@ export const WalletConnectProvider = ({
   const endpoint = import.meta.env.VITE_SOL_RPC;
 
   const wallets = useMemo(
-    () => [
-      new PhantomWalletAdapter(),
-      new SolflareWalletAdapter({ network }),
-      new TorusWalletAdapter(),
-      new LedgerWalletAdapter(),
-    ],
+    () => [new PhantomWalletAdapter(), new LedgerWalletAdapter()],
     [network]
   );
 
