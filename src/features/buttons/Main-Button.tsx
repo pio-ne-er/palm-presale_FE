@@ -237,7 +237,7 @@ export const MainButton = ({
       $sm={small}
       $w={width}
       $disable={disable}
-      onMouseEnter={() => setHover("true")}
+      onMouseEnter={() => setHover("Main Button")}
       onMouseLeave={() => setHover("")}
       onClick={onClick}
     >

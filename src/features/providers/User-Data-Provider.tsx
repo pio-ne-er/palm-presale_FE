@@ -64,10 +64,11 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
         walletModal.setVisible(true);
         return;
       }
+      console.log("hi", isLedger);
 
       const nonce = await getNonce(wallet.publicKey.toBase58());
       console.log("Nonce", nonce);
-      const statement = `Authorize your wallet. nonce: ${nonce}`;
+      // const statement = `Authorize your wallet. nonce: ${nonce}`;
       localStorage.setItem("nonce", nonce);
     } catch (error) {
       console.log("Sign error", error);

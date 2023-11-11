@@ -1,27 +1,28 @@
 import { BrowserRouter } from "react-router-dom";
+import { useContext } from "react";
 
 import Router from "pages/router";
-import { CustomCursor } from "@features/cursor";
-import { HoverContextProvider, TabContextProvider } from "@features/contexts";
+import { HoverContext, TabContextProvider } from "@features/contexts";
 import {
   UserContextProvider,
   WalletConnectProvider,
   WalletModalProvider,
 } from "@features/providers";
+import { Globalstyles } from "styles/GlobalStyles";
 
 function App() {
+  const { hover } = useContext(HoverContext);
+
   return (
     <WalletConnectProvider>
       <WalletModalProvider>
         <UserContextProvider>
-          <HoverContextProvider>
-            <TabContextProvider>
-              <BrowserRouter>
-                <CustomCursor />
-                <Router />
-              </BrowserRouter>
-            </TabContextProvider>
-          </HoverContextProvider>
+          <TabContextProvider>
+            <BrowserRouter>
+              <Globalstyles $hover={hover !== ""} />
+              <Router />
+            </BrowserRouter>
+          </TabContextProvider>
         </UserContextProvider>
       </WalletModalProvider>
     </WalletConnectProvider>
