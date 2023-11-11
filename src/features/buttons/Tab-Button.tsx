@@ -193,8 +193,8 @@ export const TabButton = () => {
 
   return (
     <Tab
-      onMouseOver={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseOver={() => setHover("Tab Button")}
+      onMouseLeave={() => setHover("")}
     >
       <LeftTab
         $type={type}

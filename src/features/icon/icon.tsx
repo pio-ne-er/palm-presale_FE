@@ -20,6 +20,9 @@ export const Icon = ({
       case "sm":
         width = height = 32;
         break;
+      case "xs":
+        width = height = 24;
+        break;
     }
     return { width: width, height: height, viewBox: viewBox };
   };

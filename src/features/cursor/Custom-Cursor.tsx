@@ -77,7 +77,7 @@ export const CustomCursor = () => {
         ease: "linear",
         duration: 0,
       }}
-      hover={hover}
+      hover={hover !== ""}
     />
   );
 };

@@ -220,6 +220,7 @@ export const MainButton = ({
   disable = false,
   title,
   color,
+  onClick,
 }: {
   width: number;
   small?: boolean;
@@ -227,6 +228,7 @@ export const MainButton = ({
   disable?: boolean;
   title: string;
   color: string;
+  onClick?: () => void;
 }) => {
   const { setHover } = useContext(HoverContext);
 
@@ -235,8 +237,9 @@ export const MainButton = ({
       $sm={small}
       $w={width}
       $disable={disable}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => setHover("true")}
+      onMouseLeave={() => setHover("")}
+      onClick={onClick}
     >
       <MainBord $w={width} $sm={small} $main={main} $disable={disable}>
         <BorderEffect $sm={small} $main={main} />
