@@ -7,6 +7,8 @@ import styles from "./Landing-Page.module.css";
 import { H1 } from "@features/font";
 import { useRef } from "react";
 
+import video from "../assets/video/landing.mp4";
+
 interface PageProps {
   $position: boolean;
 }
@@ -48,14 +50,7 @@ export default function LandingPage() {
   return (
     <>
       <LPHeader position={y > 10} />
-      <StylesVideo
-        ref={videoRef}
-        autoPlay
-        playsInline
-        loop
-        muted
-        src="/src/assets/video/landing.mp4"
-      />
+      <StylesVideo ref={videoRef} autoPlay playsInline loop muted src={video} />
       <LPPage $position={y > 50}>
         <div className={styles.lp_scroll}>
           <ScrollDownButton
