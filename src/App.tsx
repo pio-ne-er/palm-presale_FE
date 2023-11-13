@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Buffer } from "buffer";
 
 import Router from "pages/router";
@@ -10,12 +10,18 @@ import {
   WalletModalProvider,
 } from "@features/providers";
 import { Globalstyles } from "styles/GlobalStyles";
+import { useToast } from "@features/toast";
 
 Buffer.from("anything", "base64");
 window.Buffer = window.Buffer || Buffer;
 
 function App() {
   const { hover } = useContext(HoverContext);
+  const toast = useToast();
+
+  useEffect(() => {
+    toast.position({ position: "top-right", auto: true, time: 3 });
+  }, []);
 
   return (
     <WalletConnectProvider>

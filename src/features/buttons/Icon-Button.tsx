@@ -7,10 +7,12 @@ export const IconButton = ({
   name,
   color,
   size = "base",
+  onClick,
 }: {
   name: IconNames;
   color: string;
   size: string;
+  onClick?: () => void;
 }) => {
   const { setHover } = useContext(HoverContext);
 
@@ -18,6 +20,7 @@ export const IconButton = ({
     <div
       onMouseEnter={() => setHover(name)}
       onMouseLeave={() => setHover("")}
+      onClick={onClick}
       className="center_position"
     >
       <Icon name={name} color={color} size={size} />

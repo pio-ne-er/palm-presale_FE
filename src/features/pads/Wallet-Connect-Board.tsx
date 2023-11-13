@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useEffect } from "react";
 import { styled } from "styled-components";
 
 import { WalletConnectButton } from "@features/buttons";
-import { useUserData } from "@features/providers";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { Toast_Text_List } from "utilities";
+import { useToast } from "@features/toast";
 
 const StyleBoard = styled.div`
   position: absolute;
@@ -46,20 +46,42 @@ const StyleBoard = styled.div`
 const WalletConnectList = ["Phantom", "Backpack", "Ledger"];
 
 export const WalletConnectBoard = () => {
-  const { sign } = useUserData();
   const wallet = useWallet();
+  const toast = useToast();
 
   const handleConnectProvider = async (type: string) => {
-    switch (type) {
-      case "Phantom":
-        await sign(false);
-        break;
+    try {
+      const Twallet = wallet.wallets.find(
+        (wallet) => wallet.adapter.name === type
+      );
+
+      if (Twallet) {
+        if (Twallet.readyState === "Installed") {
+          wallet.select(Twallet.adapter.name);
+          const info = {
+            title: Toast_Text_List.confirm_connect_wallet,
+            state: true,
+          };
+          toast.open(info);
+          return;
+        } else {
+          const info = {
+            title: Toast_Text_List.err_connect_wallet,
+            state: false,
+          };
+          toast.open(info);
+          return;
+        }
+      }
+      const info = {
+        title: Toast_Text_List.err_install_wallet,
+        state: false,
+      };
+      toast.open(info);
+    } catch (error) {
+      console.log("Error", error);
     }
   };
-
-  useEffect(() => {
-    console.log("wallet", wallet.wallets);
-  }, []);
 
   return (
     <StyleBoard>
