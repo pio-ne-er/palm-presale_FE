@@ -1,12 +1,11 @@
 import { styled } from "styled-components";
+import { useRef } from "react";
 
 import { useScrollPosition } from "@features/hooks";
 import { LPHeader } from "@features/ui/lp";
-import { ScrollDownButton } from "@features/buttons";
-import styles from "./Landing-Page.module.css";
+import { MainButton, ScrollDownButton } from "@features/buttons";
 import { H1 } from "@features/font";
-import { useRef } from "react";
-
+import styles from "./Landing-Page.module.css";
 import video from "../assets/video/landing.mp4";
 
 interface PageProps {
@@ -62,6 +61,12 @@ export default function LandingPage() {
           <H1 $weight="400" color="white">
             About
           </H1>
+          <MainButton
+            width={142}
+            title={"Connect Wallet"}
+            color="white"
+            // onClick={wallet.publicKey ? handleSignIn : handleShowBoard}
+          />
         </div>
       </LPPage>
     </>

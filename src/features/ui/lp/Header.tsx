@@ -1,4 +1,5 @@
-import { useContext, useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useContext, useState } from "react";
 import { styled } from "styled-components";
 import { useWallet } from "@solana/wallet-adapter-react";
 
@@ -39,9 +40,16 @@ const Header = styled.div<HeaderProps>`
   }
 `;
 
-const Link = styled.a`
-  cursor: none;
-`;
+const SocialItems = [
+  {
+    name: "Facebook",
+    link: "https://x.com/pioneerlegendio",
+  },
+  {
+    name: "Discord",
+    link: "https://discord.com/invite/pioneerlegends",
+  },
+];
 
 export const LPHeader = ({ position = false }: { position: boolean }) => {
   const { hover } = useContext(HoverContext);
@@ -57,13 +65,9 @@ export const LPHeader = ({ position = false }: { position: boolean }) => {
     await sign(false);
   };
 
-  useEffect(() => {
-    console.log("wallet.publicKey", wallet.publicKey?.toBase58());
-  }, [wallet.publicKey]);
-
-  useEffect(() => {
-    console.log("Wallet", wallet.wallets);
-  }, [wallet]);
+  const handleClickSocial = (link: string) => {
+    window.open(link, "rel=noopener noreferrer");
+  };
 
   return (
     <Header $type={position}>
@@ -77,28 +81,22 @@ export const LPHeader = ({ position = false }: { position: boolean }) => {
         {showConnedtBoard && <WalletConnectBoard />}
       </div>
       <div className={styles.header_social}>
-        <Link
-          href="https://x.com/pioneerlegendio/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        {SocialItems.map((item) => (
           <IconButton
-            name="Facebook"
-            color={hover === "Facebook" ? "#1D9BF0" : "white"}
+            key={item.name}
+            // @ts-ignore
+            name={item.name}
+            color={
+              hover === "Facebook" && item.name === "Facebook"
+                ? "#1D9BF0"
+                : hover === "Discord" && item.name === "Discord"
+                ? "#5865F2"
+                : "white"
+            }
             size="sm"
+            onClick={() => handleClickSocial(item.link)}
           />
-        </Link>
-        <Link
-          href="https://discord.com/invite/pioneerlegends"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <IconButton
-            name="Discord"
-            color={hover === "Discord" ? "#5865F2" : "white"}
-            size="sm"
-          />
-        </Link>
+        ))}
       </div>
     </Header>
   );
