@@ -12,6 +12,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@metaplex-foundation/mpl-token-auth-rules": "^2.0.0",
     "@types/react-lazy-load-image-component": "^1.6.3",
     "axios": "^1.6.1",
     "bs58": "^5.0.0",
@@ -22,11 +23,14 @@
     "react-icons": "^4.11.0",
     "react-lazy-load-image-component": "^1.6.0",
     "react-router-dom": "^6.18.0",
+    "scrollbooster": "^3.0.2",
     "styled-components": "^6.1.1",
     "vite-tsconfig-paths": "^4.2.1"
   },
   "devDependencies": {
+    "@nfteyez/sol-rayz": "^0.10.2",
     "@project-serum/anchor": "^0.26.0",
+    "@solana/spl-token": "^0.3.9",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.34",
@@ -38,6 +42,7 @@
     "@testing-library/user-event": "^14.5.1",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/scrollbooster": "^3.0.3",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",

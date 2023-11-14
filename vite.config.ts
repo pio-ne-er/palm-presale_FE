@@ -19,6 +19,10 @@ export default defineConfig({
     port: 5000,
     host: "0.0.0.0",
   },
+  define: {
+    "process.env.ANCHOR_BROWSER": true,
+    global: "window",
+  },
   resolve: {
     alias: {
       src: "/src",

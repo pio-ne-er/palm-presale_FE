@@ -4,22 +4,6 @@
   box-sizing: border-box;
 }
 
-html {
-  /* cursor: none; */
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-html {
-  font-family: 'Saira', sans-serif;
-}
-
-body {
-  min-width: 100vw;
-  min-height: 100vh;
-  margin: 0;
-}
-
 .scroll_button_position {
   position: absolute;
   left: 50%;

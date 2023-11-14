@@ -1,5 +1,5 @@
 import { HoverContext } from "@features/contexts";
-import { H3, H4 } from "@features/font";
+import { H4, H5 } from "@features/font";
 import { useContext } from "react";
 import { keyframes, styled } from "styled-components";
 import LoadingImg from "../../assets/loading.png";
@@ -238,7 +238,7 @@ export const MainButton = ({
   disable?: boolean;
   title: string;
   color: string;
-  loading: boolean;
+  loading?: boolean;
   onClick?: () => void;
 }) => {
   const { setHover } = useContext(HoverContext);
@@ -260,13 +260,13 @@ export const MainButton = ({
             <BorderEffect $sm={small} $main={main} />
             <ButtonEffect $sm={small} $main={main} />
             {small ? (
-              <H4 color={color} $weight="500">
+              <H5 color={color} $weight="500">
+                {title}
+              </H5>
+            ) : (
+              <H4 color={color} $weight="600">
                 {title}
               </H4>
-            ) : (
-              <H3 color={color} $weight="600">
-                {title}
-              </H3>
             )}
           </>
         )}

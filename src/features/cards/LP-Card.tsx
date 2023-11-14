@@ -1,11 +1,17 @@
 import { styled } from "styled-components";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { H1, H2 } from "@features/font";
+import { H1, H3 } from "@features/font";
 
 const CardMain = styled.div`
   width: 965px;
   height: 360px;
+
+  @media only screen and (max-width: 1024px) {
+    width: 360px;
+    height: 360px;
+  }
+
   position: relative;
   background: rgba(30, 25, 21, 0.85);
 
@@ -38,10 +44,79 @@ const Notic = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 36px;
+
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
 `;
 
-const UpdateH2 = styled(H2)`
+const UpdateH2 = styled(H3)`
   white-space: break-spaces;
+`;
+
+const StyleBottomDecoration = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &:before {
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    top: 0;
+    right: -3px;
+    content: "";
+    background-image: url("src/assets/bottom.png");
+    background-repeat: no-repeat;
+    background-position: bottom right;
+  }
+
+  &:after {
+    position: absolute;
+    bottom: -7px;
+    left: -3px;
+    top: 0;
+    right: 0;
+    content: "";
+    background-image: url("src/assets/bottom.png");
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    transform: rotateY(180deg);
+  }
+`;
+const StyleTopDecoration = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &:before {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    bottom: 0;
+    right: -3px;
+    content: "";
+    background-image: url("src/assets/top.png");
+    background-repeat: no-repeat;
+    background-position: top right;
+  }
+
+  &:after {
+    position: absolute;
+    top: -5px;
+    left: -3px;
+    bottom: 0;
+    right: 0;
+    content: "";
+    background-image: url("src/assets/top.png");
+    background-repeat: no-repeat;
+    background-position: top right;
+    transform: rotateY(180deg);
+  }
 `;
 
 export const LPCard = ({
@@ -72,6 +147,8 @@ export const LPCard = ({
           </UpdateH2>
         </Notic>
       </Board>
+      <StyleBottomDecoration />
+      <StyleTopDecoration />
     </CardMain>
   );
 };

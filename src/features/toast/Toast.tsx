@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { keyframes, styled, css } from "styled-components";
 
-import { H3 } from "@features/font";
+import { H4 } from "@features/font";
 import { Icon } from "@features/icon";
 import { ToastInfoProps, ToastSettingProps } from "utilities";
 import { HoverContext } from "@features/contexts";
@@ -102,9 +102,9 @@ export default function Toast({
       $position={setting.position}
     >
       <Icon name={toast.state ? "Check" : "Mark"} size="xs" color="white" />
-      <H3 $weight="500" color="white">
+      <H4 $weight="500" color="white">
         {toast.title}
-      </H3>
+      </H4>
       {!setting.auto && (
         <StyleCloseButton
           onMouseEnter={() => setHover("Close Button")}
