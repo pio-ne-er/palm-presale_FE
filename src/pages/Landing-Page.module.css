@@ -12,3 +12,9 @@
     position: relative;
     z-index: 3;
 }
+
+@media (max-width: 1024px) {
+    .lp_contain {
+        width: 100%;
+    }
+}

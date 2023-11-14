@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import { HoverContext } from "@features/contexts";
 import { Icon } from "@features/icon";
 import { IconNames } from "@features/icon/icons";
-import { H3 } from "@features/font";
+import { H4 } from "@features/font";
 
 const StyleButton = styled.div`
   width: 100%;
@@ -39,9 +39,9 @@ export const WalletConnectButton = ({
       onClick={onClick}
     >
       <Icon name={type} color="white" size="xs" />
-      <H3 color="white" $weight="500">
+      <H4 color="white" $weight="500">
         {type}
-      </H3>
+      </H4>
     </StyleButton>
   );
 };

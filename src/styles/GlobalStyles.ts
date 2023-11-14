@@ -31,5 +31,19 @@ html {
     cursor: url('../../cursor/normal/01.png'), auto;
     animation: ${(props) =>
       props.$hover ? CursorHoverAnim : CursorAnim} 0.7s infinite;
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Saira', sans-serif;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  scrollbar-width: 8px;
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 }
 `;
