@@ -2,12 +2,21 @@
 import { useContext, useState } from "react";
 import { styled } from "styled-components";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useNavigate } from "react-router-dom";
+import bs58 from "bs58";
 
 import { IconButton, MainButton } from "@features/buttons";
 import { HoverContext } from "@features/contexts";
 import styles from "./Header.module.css";
 import { WalletConnectBoard } from "@features/pads";
-import { useUserData } from "@features/providers";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { authorizeUser, getNonce } from "api";
+import {
+  PublicKey,
+  Transaction,
+  TransactionInstruction,
+} from "@solana/web3.js";
+import { solConnection } from "utilities";
 
 interface HeaderProps {
   $type: boolean;
@@ -54,15 +63,89 @@ const SocialItems = [
 export const LPHeader = ({ position = false }: { position: boolean }) => {
   const { hover } = useContext(HoverContext);
   const wallet = useWallet();
-  const { sign } = useUserData();
+  const walletModal = useWalletModal();
+  const navigate = useNavigate();
   const [showConnedtBoard, setShowConnectBoard] = useState<boolean>(false);
+  const [walletType, setWalletType] = useState<boolean>(false);
+  const [isSignning, setIsSignning] = useState<boolean>(false);
 
   const handleShowBoard = () => {
     setShowConnectBoard((prev) => !prev);
   };
 
   const handleSignIn = async () => {
-    await sign(false);
+    setIsSignning(true);
+    try {
+      if (!wallet.publicKey) {
+        walletModal.setVisible(true);
+        return;
+      }
+
+      const nonce = await getNonce(wallet.publicKey.toBase58());
+      const statement = `Authorize your wallet. nonce: ${nonce}`;
+      localStorage.setItem("nonce", nonce);
+
+      if (!walletType) {
+        if (!wallet.signMessage) return;
+
+        if (nonce && wallet.connected) {
+          const message = new TextEncoder().encode(statement);
+          const sig = await wallet.signMessage(message);
+
+          if (sig) {
+            const req = await authorizeUser(
+              wallet.publicKey.toBase58(),
+              bs58.encode(new Uint8Array(sig as unknown as ArrayBuffer)),
+              nonce as string
+            );
+
+            if (req) {
+              navigate("/map");
+              localStorage.setItem("PLAuth", "Authlized");
+            }
+          }
+        }
+      } else {
+        const MEMO_PROGRAM_ID = new PublicKey(
+          "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        );
+
+        console.log(MEMO_PROGRAM_ID);
+
+        const blackHash = (await solConnection.getLatestBlockhash()).blockhash;
+        console.log("Blockhash", blackHash);
+        const tx = new Transaction().add(
+          new TransactionInstruction({
+            programId: MEMO_PROGRAM_ID,
+            keys: [],
+            data: Buffer.from(statement, "utf8"),
+          })
+        );
+        tx.feePayer = wallet.publicKey;
+        tx.recentBlockhash = blackHash;
+        console.log("TXXX", tx);
+
+        const signedTx = await wallet.signTransaction!(tx);
+        const serializedTx = signedTx.serialize();
+        const bufferStr = JSON.stringify(Array.from(serializedTx));
+
+        const req = await authorizeUser(
+          wallet.publicKey.toBase58(),
+          bufferStr,
+          nonce as string,
+          true
+        );
+
+        if (req) {
+          navigate("/map");
+          localStorage.setItem("PLAuth", "Authlized");
+        }
+      }
+    } catch (error) {
+      console.log("Sign error", error);
+    } finally {
+      setIsSignning(false);
+    }
   };
 
   const handleClickSocial = (link: string) => {
@@ -76,9 +159,10 @@ export const LPHeader = ({ position = false }: { position: boolean }) => {
           width={142}
           title={wallet.publicKey ? "Sign In" : "Connect Wallet"}
           color="white"
+          loading={isSignning}
           onClick={wallet.publicKey ? handleSignIn : handleShowBoard}
         />
-        {showConnedtBoard && <WalletConnectBoard />}
+        {showConnedtBoard && <WalletConnectBoard getType={setWalletType} />}
       </div>
       <div className={styles.header_social}>
         {SocialItems.map((item) => (
