@@ -1,7 +1,8 @@
 import { HoverContext } from "@features/contexts";
 import { H3, H4 } from "@features/font";
 import { useContext } from "react";
-import { styled } from "styled-components";
+import { keyframes, styled } from "styled-components";
+import LoadingImg from "../../assets/loading.png";
 
 interface ButtonProps {
   $w?: number;
@@ -213,6 +214,14 @@ const BorderEffect = styled.div<ButtonProps>`
     `}
 `;
 
+const LoadingAnime = keyframes`
+from {transform: rotate(0)}
+to {transform: rotate(360deg)}`;
+
+const LoadingIcon = styled.img`
+  animation: ${LoadingAnime} 1s infinite linear;
+`;
+
 export const MainButton = ({
   width,
   small = false,
@@ -220,6 +229,7 @@ export const MainButton = ({
   disable = false,
   title,
   color,
+  loading,
   onClick,
 }: {
   width: number;
@@ -228,6 +238,7 @@ export const MainButton = ({
   disable?: boolean;
   title: string;
   color: string;
+  loading: boolean;
   onClick?: () => void;
 }) => {
   const { setHover } = useContext(HoverContext);
@@ -242,16 +253,22 @@ export const MainButton = ({
       onClick={onClick}
     >
       <MainBord $w={width} $sm={small} $main={main} $disable={disable}>
-        <BorderEffect $sm={small} $main={main} />
-        <ButtonEffect $sm={small} $main={main} />
-        {small ? (
-          <H4 color={color} $weight="500">
-            {title}
-          </H4>
+        {loading ? (
+          <LoadingIcon src={LoadingImg} />
         ) : (
-          <H3 color={color} $weight="600">
-            {title}
-          </H3>
+          <>
+            <BorderEffect $sm={small} $main={main} />
+            <ButtonEffect $sm={small} $main={main} />
+            {small ? (
+              <H4 color={color} $weight="500">
+                {title}
+              </H4>
+            ) : (
+              <H3 color={color} $weight="600">
+                {title}
+              </H3>
+            )}
+          </>
         )}
       </MainBord>
     </Button>

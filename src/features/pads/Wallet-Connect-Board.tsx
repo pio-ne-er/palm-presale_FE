@@ -45,7 +45,11 @@ const StyleBoard = styled.div`
 
 const WalletConnectList = ["Phantom", "Backpack", "Ledger"];
 
-export const WalletConnectBoard = () => {
+export const WalletConnectBoard = ({
+  getType,
+}: {
+  getType: (data: boolean) => void;
+}) => {
   const wallet = useWallet();
   const toast = useToast();
 
@@ -57,6 +61,11 @@ export const WalletConnectBoard = () => {
 
       if (Twallet) {
         if (Twallet.readyState === "Installed") {
+          if (Twallet.adapter.name === "Phantom") {
+            getType(false);
+          } else if (Twallet.adapter.name === "Ledger") {
+            getType(true);
+          }
           wallet.select(Twallet.adapter.name);
           const info = {
             title: Toast_Text_List.confirm_connect_wallet,

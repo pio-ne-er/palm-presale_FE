@@ -1,3 +1,7 @@
+// import { web3 } from "@project-serum/anchor";
+
+import { Connection } from "@solana/web3.js";
+
 export interface routerType {
   title: string;
   path: string;
@@ -47,3 +51,9 @@ export const Toast_Text_List = {
   err_install_wallet: "Please install correct wallet.",
   confirm_connect_wallet: "Connected the wallet.",
 };
+
+// export const solConnection = new web3.Connection(import.meta.env.VITE_SOL_RPC);
+export const solConnection = new Connection(
+  import.meta.env.VITE_SOL_RPC,
+  "confirmed"
+);
