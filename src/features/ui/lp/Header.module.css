@@ -1,7 +1,0 @@
-.header_social {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    position: relative;
-    z-index: inherit;
-}

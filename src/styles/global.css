@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Bryndan Write';
+    src: url('./BryndanWriteBook-nGPM.ttf') format('truetype');
+    /* font-weight: bold; */
+    font-style: normal;
+}
+
+/* @font-face {
+    font-family: 'NeueMontreal';
+    src: url('./NeueMontreal.otf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+} */
+
+@media only screen and (max-width: 784px) {
+    .white-line {
+        margin: 0 30px !important;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Bryndan Write';
+    color: black;
+    margin: 0px;
+}
+
+.black-line {
+    border: none;
+    height: 2px;
+    width: -webkit-fill-available;
+    background-color: black;
+}

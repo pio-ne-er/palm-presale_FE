@@ -1,41 +1,40 @@
-import { BrowserRouter } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import { Buffer } from "buffer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { useEffect, useState } from 'react'
 
-import Router from "pages/router";
-import { HoverContext, TabContextProvider } from "@features/contexts";
+import { PageLayout } from "./features/layout";
+import { Palm } from "./pages";
+
 import {
-  UserContextProvider,
-  WalletConnectProvider,
-  WalletModalProvider,
-} from "@features/providers";
-import { Globalstyles } from "styles/GlobalStyles";
-import { useToast } from "@features/toast";
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import * as web3 from "@solana/web3.js";
+import { PhantomWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets";
+import "@solana/wallet-adapter-react-ui/styles.css";
 
-Buffer.from("anything", "base64");
-window.Buffer = window.Buffer || Buffer;
+import "./App.css";
+import "./styles/global.css";
 
 function App() {
-  const { hover } = useContext(HoverContext);
-  const toast = useToast();
+  const wallets = [new PhantomWalletAdapter(), new SolflareWalletAdapter()];
 
-  useEffect(() => {
-    toast.position({ position: "top-right", auto: true, time: 3 });
-  }, []);
-
+  const endpoint = "https://denny-wuerxw-fast-devnet.helius-rpc.com/";
+  
   return (
-    <WalletConnectProvider>
-      <WalletModalProvider>
-        <UserContextProvider>
-          <TabContextProvider>
-            <BrowserRouter>
-              <Globalstyles $hover={hover !== ""} />
-              <Router />
-            </BrowserRouter>
-          </TabContextProvider>
-        </UserContextProvider>
-      </WalletModalProvider>
-    </WalletConnectProvider>
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect={true}>
+        <WalletModalProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<PageLayout />}>
+                <Route path="/" element={<Palm />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider>
   );
 }
 

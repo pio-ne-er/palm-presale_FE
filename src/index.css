@@ -3,20 +3,3 @@
 * {
   box-sizing: border-box;
 }
-
-.scroll_button_position {
-  position: absolute;
-  left: 50%;
-  transform: translateY(-50%);
-  bottom: 56px;
-}
-
-.center_position {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.group {
-  position: relative;
-}
